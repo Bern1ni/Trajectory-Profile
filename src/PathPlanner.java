@@ -234,7 +234,7 @@ public class PathPlanner
     /**
      * Calculates the wheel paths based on robot track width and length
      *
-     * Big O: 2N
+     * Big O: N
      */
     private void Paths(double[][] smoothPath, double robotTrackWidth, double robotTrackLength)
     {
@@ -269,6 +269,8 @@ public class PathPlanner
      * @param path - the smooth path for this unit to follow
      * @param maxA - max acceleration
      * @param dt - the frequency at which the robot controller is running on the robot.
+     *
+     * Big O: N
      */
 
     public void computeMotionProfile(double[][] path, double maxA, double dt)
@@ -292,17 +294,22 @@ public class PathPlanner
         }
     }
 
+    /**
+     * Computes the distance of a
+     *
+     * @param path - the smooth path for this unit to follow
+     *
+     * Big O: N
+     */
     public double distance(double[][] path)
     {
         double distance = 0;
         for(int i = 0; i < path.length - 1; i++)
         {
-            if (i != 0) {
-                double dx = path[i + 1][0] - path[i][0];
-                double dy = path[i + 1][1] - path[i][1];
+            double dx = path[i + 1][0] - path[i][0];
+            double dy = path[i + 1][1] - path[i][1];
 
-                distance += Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-            }
+            distance += Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
         }
         return distance;
     }
